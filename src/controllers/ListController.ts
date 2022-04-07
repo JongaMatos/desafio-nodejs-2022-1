@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { List } from "../models";
 
-export default class TaskListController {
-    createTaskList = async (req: Request, res: Response) => {
+export default class ListController {
+    createList = async (req: Request, res: Response) => {
         try {
             await List.create(req.body);
             res.status(200).json({
