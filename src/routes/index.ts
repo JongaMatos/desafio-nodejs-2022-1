@@ -1,3 +1,3 @@
-import taskListRoutes from "./TaskListRoutes";
+import listRoutes from "./ListRoutes";
 
-export { taskListRoutes };
+export { listRoutes };

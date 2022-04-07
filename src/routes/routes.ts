@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import {taskListRoutes} from "./index";
+import {listRoutes} from "./index";
 
 const router = Router();
 
-router.use('/tasklist',taskListRoutes);
+router.use('/list',listRoutes);
 
 export default router;

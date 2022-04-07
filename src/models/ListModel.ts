@@ -1,6 +1,6 @@
 import {model, Schema} from 'mongoose';
 
-const TaskListkSchema = new Schema({
+const ListkSchema = new Schema({
 
     title:{
         type: String,
@@ -11,4 +11,4 @@ const TaskListkSchema = new Schema({
 });
 
 
-export default model("TaskList", TaskListkSchema);
+export default model("List", ListkSchema);

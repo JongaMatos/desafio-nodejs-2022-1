@@ -1,5 +1,5 @@
-import TaskListController from "./TaskListController";
+import ListController from "./ListController";
 
 
-export{TaskListController};
+export{ListController};
 

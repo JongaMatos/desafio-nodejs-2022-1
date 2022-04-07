@@ -1,4 +1,4 @@
-import TaskList from "./TaskListModel";
+import List from "./ListModel";
 
 
-export {TaskList}
+export {List}
