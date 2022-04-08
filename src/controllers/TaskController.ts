@@ -14,7 +14,7 @@ export default class TaskController {
                     .send({ message: "Lista não encontrada" });
 
             const task = await Task.create({ list:listId, description });
-            await list.update({
+            await list.updateOne({
                 $addToSet: {
                     tasks: task._id
                 }});
