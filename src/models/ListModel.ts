@@ -1,14 +1,17 @@
-import {model, Schema} from 'mongoose';
+import { model, Schema } from "mongoose";
 
 const ListkSchema = new Schema({
-
-    title:{
+    title: {
         type: String,
         required: true,
-        unique: false
-    }
-
+        unique: false,
+    },
+    tasks: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Task",
+        },
+    ],
 });
-
 
 export default model("List", ListkSchema);
