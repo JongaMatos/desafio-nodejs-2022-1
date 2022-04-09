@@ -11,15 +11,15 @@
 2. Clone e instale:
     - Clone o repositório com o seguinte comando:
     ``` bash
-     git clone https://github.com/JongaMatos/desafio-nodejs-2022-1.git
+        git clone https://github.com/JongaMatos/desafio-nodejs-2022-1.git
      ```
      - Navegue para dentro do diretório criado com o comando:
      ```bash
-     cd desafio-nodejs-2022-1
+        cd desafio-nodejs-2022-1
      ```
     - E por fim, instale as dependencias do projeto com o comando:
     ```bash
-    sudo yarn install
+        sudo yarn install
     ```
 3. Rodando a aplicação:
     Uma vez que os passos acima tenham sido cumpridos, deve se:
@@ -29,5 +29,5 @@
     ```
     - Nas vezes seguintes:
     ```bash
-    sudo docker-compose up
+        sudo docker-compose up
     ```
