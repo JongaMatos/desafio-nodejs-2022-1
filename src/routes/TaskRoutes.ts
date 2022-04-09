@@ -10,7 +10,7 @@ taskRoutes.post("/", (req, res) => {
 taskRoutes.get("/all", (req, res) => {
     taskController.getAll(req, res);
 });
-taskRoutes.put("/", (req, res) => {
+taskRoutes.patch("/", (req, res) => {
     taskController.update(req, res);
 });
 taskRoutes.delete("/", (req, res) => {

@@ -17,7 +17,7 @@ export default class ListController {
 
     getAll = async (req: Request, res: Response) => {
         try {
-            const response = await List.find().populate("tasks");
+            const response = await List.find();
             // const response = await List.find();
 
             if (!response)
@@ -27,13 +27,31 @@ export default class ListController {
 
             return res.status(200).send(response);
         } catch (error) {
-            console.error({error:error.message});
+            console.error({ error: error.message });
             return res
                 .status(400)
                 .send({ message: "Erro ao buscar lista de tarefas" });
         }
     };
+    getOne = async (req: Request, res: Response) => {
+        const { id } = req.params;
+        try {
+            const response = await List.findById(id).populate("tasks");
+            // const response = await List.find();
 
+            if (!response)
+                return res
+                    .status(404)
+                    .send({ message: "Lista não encontrada" });
+
+            return res.status(200).send(response);
+        } catch (error) {
+            console.error({ error: error.message });
+            return res
+                .status(400)
+                .send({ message: "Erro ao buscar lista de tarefas" });
+        }
+    };
     update = async (req: Request, res: Response) => {
         const { id, title } = req.body;
         try {
@@ -59,16 +77,18 @@ export default class ListController {
         const { id } = req.body;
         try {
             const list = await List.findByIdAndDelete(id);
-            await Task.deleteMany({list:id});
+            await Task.deleteMany({ list: id });
 
             if (!list)
                 return res
                     .status(404)
                     .send({ message: "Lista não encontrada" });
 
-            return res.status(200).send({message:"Lista excluida com sucesso"});
+            return res
+                .status(200)
+                .send({ message: "Lista excluida com sucesso" });
         } catch (error) {
-            console.error({error:error.message})
+            console.error({ error: error.message });
             return res
                 .status(400)
                 .send({ message: "Erro ao deletar a lista de tarefas" });

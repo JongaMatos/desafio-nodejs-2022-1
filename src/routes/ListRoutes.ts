@@ -12,11 +12,17 @@ listRoutes.get("/all", (req, res) => {
     listController.getAll(req, res);
 });
 
-listRoutes.put("/", (req, res) => {
+listRoutes.get("/:id", (req, res) => {
+    listController.getOne(req, res);
+});
+
+listRoutes.patch("/", (req, res) => {
     listController.update(req, res);
 });
 
 listRoutes.delete("/", (req, res) => {
     listController.delete(req, res);
 });
+
+
 export default listRoutes;
