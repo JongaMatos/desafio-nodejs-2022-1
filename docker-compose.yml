@@ -11,13 +11,28 @@ services:
         depends_on:
             - db
         volumes:
-            - ./server:/app/server
-            - ./server/node_modules:/app/server/node_modules
-        container_name: desafio_nodejs
+            - ./server:/app/
+            - ./server/node_modules:/app/node_modules
+        container_name: server_desafio_nodejs
         environment:
             - DATABASE_URL=mongodb://db/desafio_nodejs
         build:
             context: ./server/
         ports:
             - "5000:5000"
+        command: yarn start
+
+    front:
+        depends_on:
+            - api
+        volumes:
+            - ./app:/app/
+            - ./app/node_modules:/app/node_modules
+        container_name: app_desafio_nodejs
+        environment:
+            - DATABASE_URL=mongodb://db/desafio_nodejs
+        build:
+            context: ./app/
+        ports:
+            - "3000:3000"
         command: yarn start
