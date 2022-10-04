@@ -3,6 +3,9 @@ import * as cors from 'cors';
 import router from "./routes/routes";
 import databaseConnect from "./config/database";
 
+require('dotenv/config');
+
+
 const app = express();
 
 const PORT = process.env.APP_PORT || 5000;
