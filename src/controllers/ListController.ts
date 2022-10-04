@@ -99,7 +99,6 @@ export default class ListController {
                     .status(401)
                     .send({ message: "Permissão de deleção negada" });
 
-
             return res
                 .status(200)
                 .send({ message: "Lista excluida com sucesso" });
