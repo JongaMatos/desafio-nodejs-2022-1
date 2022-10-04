@@ -72,7 +72,7 @@ export default class ListController {
             else
                 return res
                     .status(401)
-                    .send({ message: "Permissão de edição negada" });
+                    .send({ message: "Não autorizado" });
 
             return res.status(200).send(response);
         } catch (error) {
@@ -97,7 +97,7 @@ export default class ListController {
             } else
                 return res
                     .status(401)
-                    .send({ message: "Permissão de deleção negada" });
+                    .send({ message: "Não autorizado" });
 
             return res
                 .status(200)

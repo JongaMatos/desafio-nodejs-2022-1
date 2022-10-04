@@ -16,7 +16,7 @@ export default class TaskController {
             if (list.user != res.locals.userId)
                 return res
                     .status(401)
-                    .send({ message: "Permissão de criação de tarefa negada" });
+                    .send({ message: "Não autorizado" });
 
             const task = await Task.create({
                 list: listId,
@@ -51,7 +51,7 @@ export default class TaskController {
                     .send({ message: "Lista não encontrada" });
 
             if (list.user != res.locals.userId)
-                return res.status(401).send({ message: "Acesso negado" });
+                return res.status(401).send({ message: "Não autorizado" });
 
             return res.status(200).send(list.tasks);
         } catch (error) {
@@ -71,7 +71,7 @@ export default class TaskController {
             if (task.user != res.locals.userId)
                 return res
                     .status(401)
-                    .send({ message: "Permissão de edição negada" });
+                    .send({ message: "Não autorizado" });
 
             await task.updateOne(req.body);
 
@@ -95,8 +95,8 @@ export default class TaskController {
                     .send({ message: "Tarefa não encontrada" });
 
             if (task.user != res.locals.userId)
-                return res.status(400).send({
-                    message: "Exclusão negada",
+                return res.status(401).send({
+                    message: "Não autorizado",
                 });
 
             await task.deleteOne();

@@ -35,7 +35,7 @@ export default class UserController {
             const token = await tokenGenerator(
                 user._id,
                 user.username,
-                10000000000000
+                1
             );
 
             return res.status(200).send({ token });

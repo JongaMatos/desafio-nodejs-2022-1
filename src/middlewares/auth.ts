@@ -25,15 +25,6 @@ const tokenGenerator = async (
     }
 };
 
-// const tokenDecoder = async (token: string) => {
-//     try {
-//         const data = await verify(token, env.SECRET);
-//         return data;
-//     } catch (error) {
-//         return undefined;
-//     }
-// };
-
 interface Idata {
     id: string;
     iat: number;
@@ -50,13 +41,12 @@ const autenticator = async (req: Request, res: Response, next: () => void) => {
 
         res.locals.userId = (<Idata>data).id;
         if (res.locals.userId == (<Idata>data).id) next();
-        
     } catch (error) {
-        if (error.message === "invalid signature")
-            res.status(401).send({ message: "Token invalido" });
-        else {
-            res.status(401).send({ error: error.message });
-        }
+
+        if (error.message === "jwt expired")
+            return res.status(401).send({ message: "Login expirado" });
+
+        return res.status(401).send({ message:"Token invalido"});
     }
 };
 
