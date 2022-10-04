@@ -12,6 +12,11 @@ const ListkSchema = new Schema({
             ref: "Task",
         },
     ],
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    },
 });
 
 export default model("List", ListkSchema);

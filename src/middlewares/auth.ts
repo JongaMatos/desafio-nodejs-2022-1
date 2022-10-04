@@ -48,9 +48,8 @@ const autenticator = async (req: Request, res: Response, next: () => void) => {
 
         const data = await verify(token, env.SECRET);
 
-        req.params.userId = (<Idata>data).id;
-
-        next();
+        res.locals.userId = (<Idata>data).id;
+        if (res.locals.userId == (<Idata>data).id) next();
         
     } catch (error) {
         if (error.message === "invalid signature")

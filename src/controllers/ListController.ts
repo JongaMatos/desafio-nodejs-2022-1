@@ -4,11 +4,15 @@ import { List, Task } from "../models";
 export default class ListController {
     createList = async (req: Request, res: Response) => {
         try {
-            await List.create(req.body);
+            await List.create({
+                title: req.body.title,
+                user: res.locals.userId,
+            });
             res.status(200).json({
                 message: "Lista de tarefas criada com sucesso",
             });
         } catch (error) {
+            console.log({ error: error.message });
             return res
                 .status(400)
                 .send({ message: "Erro ao criar lista de tarefas" });
@@ -17,7 +21,7 @@ export default class ListController {
 
     getAll = async (req: Request, res: Response) => {
         try {
-            const response = await List.find();
+            const response = await List.find({ user: res.locals.userId });
             // const response = await List.find();
 
             if (!response)
@@ -36,7 +40,7 @@ export default class ListController {
     getOne = async (req: Request, res: Response) => {
         const { id } = req.params;
         try {
-            const response = await List.findById(id).populate("tasks");
+            const response = await List.findById(id).populate("tasks", "user");
             // const response = await List.find();
 
             if (!response)
@@ -55,16 +59,20 @@ export default class ListController {
     update = async (req: Request, res: Response) => {
         const { id, title } = req.body;
         try {
-            const response = await List.findByIdAndUpdate(
-                id,
-                { title },
-                { new: true }
-            );
+            const list = await List.findById(id);
 
-            if (!response)
+            if (!list)
                 return res
                     .status(404)
                     .send({ message: "Lista não encontrada" });
+
+            var response;
+            if (list.user == res.locals.userId)
+                response = await list.updateOne({ title });
+            else
+                return res
+                    .status(401)
+                    .send({ message: "Permissão de edição negada" });
 
             return res.status(200).send(response);
         } catch (error) {
@@ -76,13 +84,21 @@ export default class ListController {
     delete = async (req: Request, res: Response) => {
         const { id } = req.body;
         try {
-            const list = await List.findByIdAndDelete(id);
-            await Task.deleteMany({ list: id });
+            const list = await List.findById(id);
 
             if (!list)
                 return res
                     .status(404)
                     .send({ message: "Lista não encontrada" });
+
+            if (list.user == res.locals.userId) {
+                list.deleteOne();
+                await Task.deleteMany({ list: id });
+            } else
+                return res
+                    .status(401)
+                    .send({ message: "Permissão de deleção negada" });
+
 
             return res
                 .status(200)
