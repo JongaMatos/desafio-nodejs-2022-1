@@ -1,7 +1,7 @@
 
-yarn.lock
-package-lock.json
+server/yarn.lock
+server/package-lock.json
 
-node_modules
+server/node_modules
 
-.env
+server.env
